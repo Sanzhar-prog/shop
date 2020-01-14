@@ -13,6 +13,7 @@ public class CustomerPhone {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String phone;
+    private boolean active;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")

@@ -18,4 +18,6 @@ public class UserPhone {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private boolean active;
+
 }

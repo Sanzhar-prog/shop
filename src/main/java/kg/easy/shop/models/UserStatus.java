@@ -6,17 +6,13 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "products")
-public class Product {
+@Table(name = "user_statuses")
+public class UserStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
-    private long minAmount;
-    private long maxAmount;
-
     private boolean active;
-
 }

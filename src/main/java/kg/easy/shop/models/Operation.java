@@ -1,5 +1,6 @@
 package kg.easy.shop.models;
 
+import kg.easy.shop.enums.OperationType;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -29,6 +30,8 @@ public class Operation {
     @OneToOne
     @JoinColumn(name = "income_id")
     private Income income;
+
+    private OperationType operationType;
 
 
 

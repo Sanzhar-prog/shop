@@ -1,5 +1,6 @@
 package kg.easy.shop.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,6 +18,6 @@ public class Supplier {
     private String name;
     private String address;
 
-    @OneToMany(mappedBy = "supplier")
+    @Transient
     private List<SupplierPhone> phones;
 }

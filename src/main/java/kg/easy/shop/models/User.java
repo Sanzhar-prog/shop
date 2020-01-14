@@ -19,7 +19,9 @@ public class User {
     private String login;
     private String pwd;
 
-    @OneToMany(mappedBy = "user")
-    private List<UserPhone> phones;
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private UserStatus status;
+
 
 }
