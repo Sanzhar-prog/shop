@@ -1,4 +1,4 @@
-package kg.easy.shop.models;
+package kg.easy.shop.models.entities;
 
 import lombok.Data;
 
@@ -16,7 +16,12 @@ public class Product {
     private String name;
     private long minAmount;
     private long maxAmount;
-
+    private long amount;
+    @OneToOne
+    @JoinColumn(name = "product_category_id")
+    private ProductCategory productCategory;
     private boolean active;
 
+    @Transient
+    private Price price;
 }

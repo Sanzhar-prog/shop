@@ -1,6 +1,5 @@
-package kg.easy.shop.models;
+package kg.easy.shop.models.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;

@@ -1,9 +1,10 @@
 package kg.easy.shop.dao;
 
-import kg.easy.shop.models.entities.UserStatus;
+import kg.easy.shop.models.entities.Operation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserStatusRepo extends JpaRepository<UserStatus,Long> {
+public interface OperationRepository extends JpaRepository<Operation, Long> {
+
 }

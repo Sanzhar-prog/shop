@@ -1,4 +1,4 @@
-package kg.easy.shop.models;
+package kg.easy.shop.models.entities;
 
 import lombok.Data;
 
@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user_statuses")
 public class UserStatus {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

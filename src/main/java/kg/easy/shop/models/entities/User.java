@@ -1,4 +1,4 @@
-package kg.easy.shop.models;
+package kg.easy.shop.models.entities;
 
 import lombok.Data;
 
@@ -23,5 +23,6 @@ public class User {
     @JoinColumn(name = "status_id")
     private UserStatus status;
 
-
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<UserPhone> phones;
 }

@@ -1,4 +1,4 @@
-package kg.easy.shop.models;
+package kg.easy.shop.models.entities;
 
 import lombok.Data;
 
@@ -16,7 +16,9 @@ public class Customer {
 
     private String name;
     private String address;
+    private double balance;
+    private float percent = 1;
 
-    @OneToMany(mappedBy = "customer")
+    @Transient
     private List<CustomerPhone> phones;
 }

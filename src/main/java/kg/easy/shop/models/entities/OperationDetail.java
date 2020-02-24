@@ -1,4 +1,4 @@
-package kg.easy.shop.models;
+package kg.easy.shop.models.entities;
 
 import lombok.Data;
 
@@ -13,7 +13,7 @@ public class OperationDetail {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private long amount;
+    private Long amount;
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;

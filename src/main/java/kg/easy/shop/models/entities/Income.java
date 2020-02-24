@@ -1,25 +1,20 @@
-package kg.easy.shop.models;
+package kg.easy.shop.models.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Data
+@Table(name = "incomes")
 @Entity
-@Table(name = "supplier_phones")
-public class SupplierPhone {
+public class Income {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String phone;
-
+    private double sum;
     @ManyToOne
     @JoinColumn(name = "supplier_id")
-    @JsonIgnore
     private Supplier supplier;
-
-    private boolean active;
 }

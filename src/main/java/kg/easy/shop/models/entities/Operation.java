@@ -1,4 +1,4 @@
-package kg.easy.shop.models;
+package kg.easy.shop.models.entities;
 
 import kg.easy.shop.enums.OperationType;
 import lombok.Data;
@@ -15,9 +15,11 @@ public class Operation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Date operDate;
-    private long total;
-    private long factSum;
+    private Date operationDate;
+    private double total;
+    private double factSum;
+
+    private OperationType operationType;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -30,11 +32,4 @@ public class Operation {
     @OneToOne
     @JoinColumn(name = "income_id")
     private Income income;
-
-    private OperationType operationType;
-
-
-
-
-
 }
