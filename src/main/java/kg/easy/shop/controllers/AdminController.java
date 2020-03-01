@@ -1,5 +1,7 @@
 package kg.easy.shop.controllers;
 
+import kg.easy.shop.mappers.ClassMapper;
+import kg.easy.shop.models.dto.*;
 import kg.easy.shop.models.entities.*;
 import kg.easy.shop.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +17,9 @@ public class AdminController {
     private AdminService adminService;
 
     @RequestMapping(value = "/user_status/save", method = RequestMethod.POST)
-    public ResponseEntity<?> saveUserStatus(@RequestBody UserStatus userStatus) {
+    public ResponseEntity<?> saveUserStatus(@RequestBody UserStatusDto userStatusDto) {
 
-        return new ResponseEntity<>(adminService.saveUserStatus(userStatus), HttpStatus.OK);
+        return new ResponseEntity<>(adminService.saveUserStatus(userStatusDto), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user_status/all", method = RequestMethod.GET)
@@ -27,9 +29,9 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/user/save", method = RequestMethod.POST)
-    public ResponseEntity<?> saveUser(@RequestBody User user) {
+    public ResponseEntity<?> saveUser(@RequestBody UserDto userDto) {
 
-        return new ResponseEntity<>(adminService.saveUser(user), HttpStatus.OK);
+        return new ResponseEntity<>(adminService.saveUser(userDto), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user/all", method = RequestMethod.GET)
@@ -39,8 +41,8 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/supplier/save", method = RequestMethod.POST)
-    public ResponseEntity<?> saveSupplier(@RequestBody Supplier supplier) {
-        return new ResponseEntity<>(adminService.saveSupplier(supplier), HttpStatus.OK);
+    public ResponseEntity<?> saveSupplier(@RequestBody SupplierDto supplierDto) {
+        return new ResponseEntity<>(adminService.saveSupplier(supplierDto), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/supplier/all", method = RequestMethod.GET)
@@ -50,8 +52,8 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/customer/save", method = RequestMethod.POST)
-    public ResponseEntity<?> saveCustomer(@RequestBody Customer customer) {
-        return new ResponseEntity<>(adminService.saveCustomer(customer), HttpStatus.OK);
+    public ResponseEntity<?> saveCustomer(@RequestBody CustomerDto customerDto) {
+        return new ResponseEntity<>(adminService.saveCustomer(customerDto), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/customer/all", method = RequestMethod.GET)
@@ -67,14 +69,24 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/product/save", method = RequestMethod.POST)
-    public ResponseEntity<?> saveProduct(@RequestBody Product product) {
-        return new ResponseEntity<>(adminService.saveProduct(product), HttpStatus.OK);
+    public ResponseEntity<?> saveProduct(@RequestBody ProductDto productDto) {
+        return new ResponseEntity<>(adminService.saveProduct(productDto), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/product/all", method = RequestMethod.GET)
     public ResponseEntity<?> getProductList() {
 
         return new ResponseEntity<>(adminService.getProductList(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/income/save", method = RequestMethod.POST)
+    public ResponseEntity<?> saveIncome(@RequestBody IncomeDto incomeDto){
+        return new ResponseEntity<>(adminService.saveIncome(incomeDto), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/income/getall")
+    public ResponseEntity<?> getIncomeList(){
+        return new ResponseEntity<>(adminService.getIncomeList(), HttpStatus.OK);
     }
 
 }

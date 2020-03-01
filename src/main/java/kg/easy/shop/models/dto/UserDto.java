@@ -1,9 +1,10 @@
 package kg.easy.shop.models.dto;
 
 import kg.easy.shop.models.entities.UserStatus;
+import lombok.Data;
 
 import java.util.List;
-
+@Data
 public class UserDto {
     private Long id;
     private String name;
@@ -12,7 +13,7 @@ public class UserDto {
     private String login;
     private String pwd;
 
-    private UserStatus status;
+    private UserStatusDto statusDto;
 
     private List<UserPhoneDto> userPhoneDtos;
 }

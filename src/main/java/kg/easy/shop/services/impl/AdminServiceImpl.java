@@ -1,6 +1,8 @@
 package kg.easy.shop.services.impl;
 
 import kg.easy.shop.dao.*;
+import kg.easy.shop.mappers.ClassMapper;
+import kg.easy.shop.models.dto.*;
 import kg.easy.shop.models.entities.*;
 import kg.easy.shop.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,28 +48,49 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private PriceRepository priceRepository;
 
+    @Autowired
+    private IncomeRepository incomeRepository;
+
     @Override
-    public UserStatus saveUserStatus(UserStatus userStatus) {
+    public UserStatus saveUserStatus(UserStatusDto userStatusDto) {
+        UserStatus userStatus = ClassMapper.INSTANCE.userStatusDtoToUserStatus(userStatusDto);
         return userStatusRepository.save(userStatus);
     }
 
     @Override
-    public List<UserStatus> getUserStatusList() {
-        return userStatusRepository.findAll();
+    public List<UserStatusDto> getUserStatusList() {
+        List<UserStatus> userStatuses = userStatusRepository.findAll();
+        List<UserStatusDto> userStatusDtos = ClassMapper.INSTANCE.userStatusesToUserStatusDtos(userStatuses);
+        return userStatusDtos;
+    }
+
+    // Метод для сохранения пользователя и телефона пользователя
+    @Override
+    public User saveUser(UserDto userDto) {
+        User user = ClassMapper.INSTANCE.userDtoToUser(userDto);
+
+        user = userRepository.save(user);
+
+        List<UserPhone> phones = userPhoneRepository.saveAll(user.getPhones());
+
+        User finalUser = user;
+        phones.stream().forEach(x->x.setUser(finalUser));
+
+        user.setPhones(userPhoneRepository.saveAll(phones));
+        return user;
     }
 
     @Override
-    public User saveUser(User user) {
-        return userRepository.save(user);
+    public List<UserDto> getUserList() {
+        List<User> users = userRepository.findAll();
+        List<UserDto> userDtos = ClassMapper.INSTANCE.usersToUserDtos(users);
+        return userDtos;
     }
 
+    // Метод для сохранения Посавщика и номера телефона Поставщика
     @Override
-    public List<User> getUserList() {
-        return userRepository.findAll();
-    }
-
-    @Override
-    public Supplier saveSupplier(Supplier supplier) {
+    public Supplier saveSupplier(SupplierDto supplierDto) {
+        Supplier supplier = ClassMapper.INSTANCE.supplierDtoToSupplier(supplierDto);
         supplier = supplierRepository.save(supplier);
 
         List<SupplierPhone> phones = supplierPhoneRepository.saveAll(supplier.getPhones());
@@ -81,16 +104,21 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Supplier> getSupplierList() {
+    public List<SupplierDto> getSupplierList() {
 
         List<Supplier> suppliers = supplierRepository.findAll();
         suppliers.stream().forEach(x -> x.setPhones(supplierPhoneRepository.findAllBySupplier(x)));
 
-        return suppliers;
+        List<SupplierDto> supplierDtos = ClassMapper.INSTANCE.suppliersToSupplierDtos(suppliers);
+        List<SupplierPhone> supplierPhones = supplierPhoneRepository.findAll();
+        List<SupplierPhoneDto> supplierPhoneDtos = ClassMapper.INSTANCE.supplierPhonesToSupplierPhoneDtoes(supplierPhones);
+        supplierDtos.stream().forEach(x->x.setPhones(supplierPhoneDtos));//??? Добавление списка телефонов ДТО Поставщиков
+        return supplierDtos;
     }
 
     @Override
-    public Customer saveCustomer(Customer customer) {
+    public Customer saveCustomer(CustomerDto customerDto) {
+        Customer customer = ClassMapper.INSTANCE.customerDtoToCustomer(customerDto);
         customer = customerRepository.save(customer);
 
         List<CustomerPhone> phones = customerPhoneRepository.saveAll(customer.getPhones());
@@ -103,12 +131,16 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Customer> getCustomerList() {
+    public List<CustomerDto> getCustomerList() {
 
         List<Customer> customers = customerRepository.findAll();
         customers.stream().forEach(x -> x.setPhones(customerPhoneRepository.findAllByCustomer(x)));
 
-        return customers;
+        List<CustomerDto> customerDtos = ClassMapper.INSTANCE.customerToCustomerDtos(customers);
+        List<CustomerPhone> customerPhones = customerPhoneRepository.findAll();
+        List<CustomerPhoneDto> customerPhoneDtos = ClassMapper.INSTANCE.customerPhonesToCustomerPhoneDtos(customerPhones);
+        customerDtos.stream().forEach(x->x.setPhones(customerPhoneDtos));
+        return customerDtos;
     }
 
     @Override
@@ -119,13 +151,13 @@ public class AdminServiceImpl implements AdminService {
         if (user != null) {
             return userPhoneRepository.findAllByUser(user);
         }
-
         return null;
     }
 
     @Override
-    public Product saveProduct(Product product) {
+    public Product saveProduct(ProductDto productDto) {
 
+        Product product = ClassMapper.INSTANCE.productDtoToProduct(productDto);
 
         Price newPrice = product.getPrice();
         newPrice.setStartDate(new Date());
@@ -159,9 +191,7 @@ public class AdminServiceImpl implements AdminService {
             } else {
                 product.setPrice(currentPrice);
             }
-
         }
-
         return product;
     }
 
@@ -171,7 +201,6 @@ public class AdminServiceImpl implements AdminService {
 
         products.stream()
                 .forEach(x -> x.setPrice(priceRepository.findByProductAndEndDate(x, maxDate)));
-
 
         return products;
     }
@@ -184,6 +213,17 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<Price> getPriceList() {
         return null;
+    }
+
+    @Override
+    public Income saveIncome(IncomeDto incomeDto) {
+        Income income = ClassMapper.INSTANCE.incomeDtoToIncome(incomeDto);
+        return incomeRepository.save(income);
+    }
+
+    @Override
+    public List<Income> getIncomeList() {
+        return incomeRepository.findAll();
     }
 
 

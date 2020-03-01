@@ -1,34 +1,39 @@
 package kg.easy.shop.services;
 
+import kg.easy.shop.models.dto.*;
 import kg.easy.shop.models.entities.*;
 
 import java.util.List;
 
 public interface AdminService {
 
-    UserStatus saveUserStatus(UserStatus userStatus);
+    UserStatus saveUserStatus(UserStatusDto userStatusDto);
 
-    List<UserStatus> getUserStatusList();
+    List<UserStatusDto> getUserStatusList();
 
-    User saveUser(User user);
+    User saveUser(UserDto userDto);
 
-    List<User> getUserList();
+    List<UserDto> getUserList();
 
-    Supplier saveSupplier(Supplier supplier);
+    Supplier saveSupplier(SupplierDto supplierDto);
 
-    List<Supplier> getSupplierList();
+    List<SupplierDto> getSupplierList();
 
-    Customer saveCustomer(Customer customer);
+    Customer saveCustomer(CustomerDto customerDto);
 
-    List<Customer> getCustomerList();
+    List<CustomerDto> getCustomerList();
 
     List<UserPhone> getUserPhoneList(Long id);
 
-    Product saveProduct(Product product);
+    Product saveProduct(ProductDto productDto);
 
     List<Product> getProductList();
 
     Price savePrice(Price price);
 
     List<Price> getPriceList();
+
+    Income saveIncome(IncomeDto incomeDto);
+
+    List<Income> getIncomeList();
 }
